@@ -8,8 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-public class MemberDTO {
+public class MemberRequest {
 
-    private String id;
+    private String kakao_id;
     private String nickname;
 }
+

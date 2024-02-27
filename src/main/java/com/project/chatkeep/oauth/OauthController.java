@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -19,9 +17,14 @@ public class OauthController {
 
     private final OauthService oauthService;
 
-    @GetMapping("/kakao")
-    public ResponseEntity<MsgEntity> kakaoLogin(HttpServletRequest request, HttpServletResponse response) {
-        MemberResponse memberResponse = oauthService.kakaoLogin(request.getParameter("code"), request, response);
+    @GetMapping()
+    public String goLoginPage(){
+        return oauthService.getKakaoLoginPage();
+    }
+
+    @PostMapping("/kakao")
+    public ResponseEntity<MsgEntity> kakaoLogin(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) {
+        MemberResponse memberResponse = oauthService.kakaoLogin(code, request, response);
         return ResponseEntity.ok()
                 .body(new MsgEntity("Success", memberResponse));
     }

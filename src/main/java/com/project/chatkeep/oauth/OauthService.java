@@ -53,6 +53,13 @@ public class OauthService {
     private static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     private static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
 
+    public String getKakaoLoginPage() {
+        return KAKAO_AUTH_URI + "/oauth/authorize"
+                + "?client_id=" + CLIENT_ID
+                + "&redirect_uri=" + REDIRECT_URI
+                + "&response_type=code";
+    }
+
 
     @Transactional
     public MemberResponse kakaoLogin(String code, HttpServletRequest request, HttpServletResponse response) {

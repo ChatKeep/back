@@ -42,6 +42,15 @@ public class FolderController {
 
     }
 
+    //Folder findById(Long folderId);//폴더 조회
+    @GetMapping("folder")
+    public ResponseEntity<FolderResponse> getByFolderId(@RequestParam("folderId") Long folderId){
+        Folder folder = folderService.findById(folderId);
+        FolderResponse folderResponse = folderEntityToFolderResponse(folder);
+        return ResponseEntity.ok()
+                .body(folderResponse);
+    }
+
 //    Folder save(String folderName, Long memberId); //폴더 등록
     @PostMapping
     public ResponseEntity<FolderResponse> registFolder(@RequestBody String folderName, Principal principal){

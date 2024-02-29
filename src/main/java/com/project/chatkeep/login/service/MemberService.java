@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -20,6 +21,13 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
+
+    public Member findLoginMember(Principal principal){
+        String memberOautoId = findIdByToken(principal);
+        Optional<Member> memberOptional = findByOauthInfo_OauthId(memberOautoId);
+        Member member = memberOptional.orElseThrow(() -> new NoSuchElementException("Member not found"));
+        return member;
+    }
 
     public String findIdByToken(Principal principal){
         ObjectMapper objectMapper = new ObjectMapper();

@@ -67,6 +67,21 @@ public class MemoController {
                 .body(memoResponse);
     }
 
+    //List<Memo> findByMemberIdAndBookmarkTrue(Long memberId); //북마크 true 메모 조회
+    @GetMapping("bookmarkList")
+    public ResponseEntity<List<MemoResponse>> getByMemberIdAndBookmarkTrue(Principal principal){
+        Member member = memberService.findLoginMember(principal);
+
+        List<Memo> memoList = memoService.findByMemberIdAndBookmarkTrue(member.getId());
+        List<MemoResponse> memoResponseList = new ArrayList<>();
+        for(Memo memo : memoList){
+            MemoResponse memoResponse = memoEntityToMeNoResponse(memo);
+            memoResponseList.add(memoResponse);
+        }
+        return ResponseEntity.ok()
+                .body(memoResponseList);
+    }
+
 
 //    Memo save(MemoRequest memoRequest); //메모 등록
     @PostMapping()

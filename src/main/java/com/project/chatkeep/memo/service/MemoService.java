@@ -14,6 +14,8 @@ public interface MemoService {
     List<Memo> findByMemberIdAndFolderId(Long memberid, Long folderId); // 맴버의 특정 폴더의 메모 조회
     Optional<Memo> findByID(Long memoId); //메모 조회
 
+    List<Memo> findByMemberIdAndBookmarkTrue(Long memberId); //북마크 true 메모 조회
+
     //Memo save(MemoRequest memoRequest); //메모 등록
 
     Memo save(Member member); //메모 등록

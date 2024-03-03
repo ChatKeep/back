@@ -50,6 +50,13 @@ public class MemoServiceImpl implements MemoService{
     }
 
     @Override
+    public List<Memo> findByMemberIdAndBookmarkTrue(Long memberid) {
+        Optional<Member> memberOptional = memberRepository.findById(memberid);
+        Member member = memberOptional.orElseThrow();
+        return memoRepository.findByMemberIdAndBookmarkTrue(member);
+    }
+
+    @Override
     public Memo save(Member member) { // -> dto로 수정
 
         Memo memo = new Memo("", "",false, "",member,null);

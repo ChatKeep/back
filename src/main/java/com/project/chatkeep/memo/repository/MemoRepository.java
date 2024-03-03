@@ -14,4 +14,6 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     List<Memo> findByMemberIdAndFolderId(Member memberId, Folder folderId);  // 맴버의 특정 폴더의 메모 조회
 
+    List<Memo> findByMemberIdAndBookmarkTrue(Member memberId); //북마크 true 메모 조회
+
 }
